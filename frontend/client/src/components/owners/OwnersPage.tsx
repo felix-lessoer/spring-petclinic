@@ -16,11 +16,13 @@ interface IOwnerPageState {
 }
 
 export default class OwnersPage extends React.Component<IOwnersPageProps, IOwnerPageState> {
+  [x: string]: any;
 
   initial_render: boolean;
+  state: { owner?: IOwner; };
 
-  constructor() {
-    super();
+  constructor(props: IOwnersPageProps, state: IOwnerPageState) {
+    super(props, state);
     this.initial_render = true;
     APMService.getInstance().startTransaction('OwnersPage');
     punish();

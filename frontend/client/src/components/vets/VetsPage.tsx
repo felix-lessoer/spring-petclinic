@@ -1,18 +1,20 @@
 import * as React from 'react';
 
-import { Router, Link } from 'react-router';
-import { request, xhr_request } from '../../util/index';
+import { xhr_request } from '../../util/index';
 import { IVet } from '../../types/index';
 import { APMService, punish } from '../../main';
 interface IVetsPageState {
   vets: IVet[];
 }
 
-export default class VetsPage extends React.Component<void, IVetsPageState> {
+export default class VetsPage extends React.Component<any, IVetsPageState> {
+  [x: string]: any;
 
   initial_render: boolean;
-  constructor() {
-    super();
+  state: { vets: IVet[]; };
+
+  constructor(props: void, state: IVetsPageState) {
+    super(props, state);
     this.initial_render = true;
     APMService.getInstance().startTransaction('VetsPage');
     punish();

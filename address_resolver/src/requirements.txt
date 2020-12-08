@@ -1,13 +1,13 @@
-blinker==1.4
+# blinker==1.4
 certifi==2018.10.15
 Click==7.0
--e git://github.com/elastic/apm-agent-python.git@f28dcb9217dc5bc7c43b29f510e3f4c06f2b100e#egg=elastic_apm
-elasticsearch==6.3.1
+elastic-apm==5.10.0
+elasticsearch==7.10.0
 Flask==1.0.2
 gunicorn==19.9.0
 itsdangerous==1.1.0
 Jinja2==2.10
-MarkupSafe==1.0
+MarkupSafe==1.1.1
 pystache==0.5.4
 python-json-logger==0.1.9
 urllib3==1.24

@@ -3,6 +3,7 @@ const webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const port = process.env.PORT || 3000;
 const api_server_url = process.env.API_SERVER_URL || 'http://localhost:4000';
+const folderSrc = path.dirname("src/");
 
 const entries = [
   'webpack-dev-server/client?http://0.0.0.0:'+port,
@@ -28,7 +29,7 @@ var config = {
       options: {
         tslint: {
           emitErrors: true,
-          failOnHint: true
+          failOnHint: false
         },
         resolve: {}
       }

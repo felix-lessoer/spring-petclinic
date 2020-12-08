@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { IOwner, IPet, IPetType, IVisit, IError, IRouterContext } from '../../types/index';
 
 import { url, request, submitForm, xhr_request, xhr_submitForm } from '../../util/index';
@@ -24,9 +23,12 @@ interface IVisitsPageState {
 }
 
 export default class VisitsPage extends React.Component<IVisitsPageProps, IVisitsPageState> {
+  [x: string]: any;
 
  initial_render: boolean;
  context: IRouterContext;
+ props: { params: any; };
+ state: any;
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired

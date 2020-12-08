@@ -57,27 +57,27 @@ case "`uname`" in
            #
            # Look for the Apple JDKs first to preserve the existing behaviour, and then look
            # for the new JDKs provided by Oracle.
-           # 
+           #
            if [ -z "$JAVA_HOME" ] && [ -L /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK ] ; then
              #
              # Apple JDKs
              #
              export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
            fi
-           
+
            if [ -z "$JAVA_HOME" ] && [ -L /System/Library/Java/JavaVirtualMachines/CurrentJDK ] ; then
              #
              # Apple JDKs
              #
              export JAVA_HOME=/System/Library/Java/JavaVirtualMachines/CurrentJDK/Contents/Home
            fi
-             
+
            if [ -z "$JAVA_HOME" ] && [ -L "/Library/Java/JavaVirtualMachines/CurrentJDK" ] ; then
              #
              # Oracle JDKs
              #
              export JAVA_HOME=/Library/Java/JavaVirtualMachines/CurrentJDK/Contents/Home
-           fi           
+           fi
 
            if [ -z "$JAVA_HOME" ] && [ -x "/usr/libexec/java_home" ]; then
              #
@@ -219,7 +219,7 @@ concat_lines() {
 export MAVEN_PROJECTBASEDIR=${MAVEN_BASEDIR:-$(find_maven_basedir)}
 MAVEN_OPTS="$(concat_lines "$MAVEN_PROJECTBASEDIR/.mvn/jvm.config") $MAVEN_OPTS"
 
-# Provide a "standardized" way to retrieve the CLI args that will 
+# Provide a "standardized" way to retrieve the CLI args that will
 # work with both Windows and non-Windows executions.
 MAVEN_CMD_LINE_ARGS="$MAVEN_CONFIG $@"
 export MAVEN_CMD_LINE_ARGS
@@ -227,7 +227,7 @@ export MAVEN_CMD_LINE_ARGS
 WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain
 
 exec "$JAVACMD" \
-	-javaagent:./agents/elastic-apm-agent-1.6.0.jar \
+	-javaagent:./agents/elastic-apm-agent-${ELASTIC_APM_AGENT_VERSION}.jar \
   -Delastic.apm.application_packages=org.springframework.samples.petclinic\
   -Delastic.apm.service_name=spring-petclinic \
   -Delastic.apm.service_version=1.0.0 \
@@ -239,4 +239,3 @@ exec "$JAVACMD" \
   -classpath "$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.jar" \
   "-Dmaven.home=${M2_HOME}" "-Dmaven.multiModuleProjectDirectory=${MAVEN_PROJECTBASEDIR}" \
   ${WRAPPER_LAUNCHER} $MAVEN_CMD_LINE_ARGS
-

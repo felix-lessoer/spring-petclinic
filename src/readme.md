@@ -7,7 +7,7 @@ Keep in mind that you will have to properly configure the APM agent accordingly 
 ## Running Petclinic Spring Boot Backend Application Locally for Development
 
 ```
-	git clone https://github.com/adamquan/spring-petclinic.git
+	git clone https://github.com/tuurleyck/spring-petclinic.git
 	cd spring-petclinic
 	./mvnw spring-boot:run
 ```

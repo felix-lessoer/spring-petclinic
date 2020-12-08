@@ -16,17 +16,19 @@ interface IEditPetPageProps {
 }
 
 interface IEditPetPageState {
-  pet?: IEditablePet;
-  owner?: IOwner;
-  pettypes?: ISelectOption[];
+  pet: IEditablePet;
+  owner: IOwner;
+  pettypes: ISelectOption[];
 };
 
 export default class EditPetPage extends React.Component<IEditPetPageProps, IEditPetPageState> {
+  [x: string]: any;
 
   initial_render: boolean;
+  props: { params: any; };
 
-  constructor() {
-    super();
+  constructor(props: IEditPetPageProps, state: IEditPetPageState) {
+    super(props, state);
     this.initial_render = true;
     APMService.getInstance().startTransaction('EditPetPage');
     punish();

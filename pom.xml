@@ -26,7 +26,7 @@
         <spring-data-jdbc.version>1.2.1.RELEASE</spring-data-jdbc.version>
 		<cobertura.version>2.7</cobertura.version>
 
-		<elastic-apm.version>1.6.0</elastic-apm.version>
+		<elastic-apm.version>1.18.0.RC1</elastic-apm.version>
 
         <start-class>org.springframework.samples.petclinic.PetClinicApplication</start-class>
 

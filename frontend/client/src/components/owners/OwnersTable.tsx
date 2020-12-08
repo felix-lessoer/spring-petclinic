@@ -28,7 +28,7 @@ const renderOwners = (owners: IOwner[]) => (
         </tr>
       </thead>
       <tbody>
-        {owners.map(renderRow)}
+        {owners.length > 0 ? owners.map(renderRow) : <tr />}
       </tbody>
     </table>
   </section>

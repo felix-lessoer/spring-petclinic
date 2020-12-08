@@ -6,7 +6,7 @@ import { url } from '../../util/index';
 import { request, xhr_request } from '../../util/index';
 
 interface IEditOwnerPageProps {
-  params?: { ownerId?: string };
+  params?: { ownerId: string };
 }
 
 interface IEditOwnerPageState {
@@ -14,9 +14,14 @@ interface IEditOwnerPageState {
 }
 
 export default class EditOwnerPage extends React.Component<IEditOwnerPageProps, IEditOwnerPageState> {
+  [x: string]: any;
 
-  constructor(props) {
-    super(props);
+  state: any;
+  refs: any;
+  props: { params: any; };
+
+  constructor(props: IEditOwnerPageProps, state: IEditOwnerPageState) {
+    super(props, state);
   }
 
   componentWillMount() {

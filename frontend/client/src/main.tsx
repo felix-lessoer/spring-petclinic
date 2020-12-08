@@ -1,12 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
+import { init as initApm } from '@elastic/apm-rum';
 
 import { browserHistory as history } from 'react-router';
 
-const initApm = require('elastic-apm-js-base/src/index').init;
-
-require('./styles/less/petclinic.less');
+import './styles/less/petclinic.less';
 import { url } from './util/index';
 
 export class APMService {
@@ -24,6 +23,7 @@ export class APMService {
   private setup_apm() {
       const requestUrl = url('config');
       const xhr = new XMLHttpRequest();
+
       xhr.open('GET', requestUrl, true);
       xhr.onload = function(e) {
         if (xhr.status === 200) {
@@ -32,9 +32,10 @@ export class APMService {
                serviceName: config.apm_client_service_name,
                serverUrl: config.apm_server,
                serviceVersion: config.apm_service_version,
-               transactionThrottleLimit: 1000,
-               errorThrottleLimit: 1000,
-               distributedTracingOrigins: config.distributedTracingOrigins.split(',')
+               logLevel: 'debug'
+               // transactionThrottleLimit: 1000,
+               // errorThrottleLimit: 1000,
+               // distributedTracingOrigins: config.distributedTracingOrigins.split(',')
             });
             this.apm.setInitialPageLoadName(window.location.pathname !== '' ? window.location.pathname : 'homepage');
             this.apm.addFilter(function (payload) {
@@ -75,7 +76,16 @@ export class APMService {
     return APMService.instance;
   }
 
+  /*
+  Arguments:
 
+  name - The name of the span (string). Defaults to unnamed
+  type - The type of span (string). Defaults to custom
+  options - The following options are supported:
+
+  parentId - Parent id associated with the new span. Defaults to current transaction id
+  sync - Denotes if the span is blocking (sync) or non-blocking(async).
+  */
   startTransaction(name) {
     if (APMService.instance.ready && !APMService.instance.open) {
       console.log('Starting transaction - ' + name + ':');
@@ -84,20 +94,23 @@ export class APMService {
         APMService.instance.apm.getCurrentTransaction().end();
       }
       let transaction = APMService.instance.apm.startTransaction(name, 'Events');
-      APMService.instance.apm.addTags({'success_load': 'false'});
+      APMService.instance.apm.addLabels({'success_load': 'false'});
       console.log(transaction);
       APMService.instance.open = true;
     }
   }
 
+  // Ends the transaction. If the transaction has already ended, nothing happens.
   endTransaction(completed) {
     if (APMService.instance.open) {
       APMService.instance.open = false;
-      APMService.instance.apm.addTags({'success_load': completed.toString()});
+      APMService.instance.apm.addLabels({'success_load': completed.toString()});
       console.log('Closing transaction');
       let transaction = APMService.instance.apm.getCurrentTransaction();
-      transaction.end();
-      console.log('Closed transaction:');
+      if (transaction) {
+        transaction.end();
+        console.log('Closed transaction:');
+      }
       console.log(transaction);
     }
   }
@@ -105,8 +118,10 @@ export class APMService {
   startSpan(name, type) {
     if (APMService.instance.ready && APMService.instance.open) {
       let transaction = APMService.instance.apm.getCurrentTransaction();
-      APMService.instance.span_open = true;
-      APMService.instance.current_span = transaction.startSpan(name, type);
+      if (transaction) {
+        APMService.instance.span_open = true;
+        APMService.instance.current_span = transaction.startSpan(name, type);
+      }
     }
   }
 
@@ -184,9 +199,9 @@ ReactDOM.render(
 );
 
 declare var module: any;
+// import Root as NextApp from './Root';
 if (module.hot) {
-  module.hot.accept('./Root', () => {
-    const NextApp = require('./Root').default;
+  module.hot.accept('./Root', (NextApp) => {
     ReactDOM.render(
       <AppContainer>
         <NextApp history={history} />

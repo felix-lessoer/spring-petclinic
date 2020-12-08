@@ -12,5 +12,6 @@ Keep in mind that you will have to properly configure the APM agents accordingly
 	cd spring-petclinic/address_resolver/src
 	pip install gunicorn json-logging-py
 	pip install --no-cache-dir -r requirements.txt
+        python data_load.py
 	gunicorn --config gunicorn.conf --log-config logging.conf -b :5000 server:app
 ```

@@ -6,7 +6,7 @@ import { APMService, punish } from '../../main';
 import OwnersTable from './OwnersTable';
 
 interface IFindOwnersPageProps {
-  location: HistoryModule.Location;
+  location: History;
 }
 
 interface IFindOwnersPageState {
@@ -19,12 +19,14 @@ const getFilterFromLocation = (location) => {
 };
 
 export default class FindOwnersPage extends React.Component<IFindOwnersPageProps, IFindOwnersPageState> {
+  [x: string]: any;
   context: IRouterContext;
   initial_render: boolean;
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   };
+  state: { filter: any; owners: any };
 
 
 
@@ -37,7 +39,8 @@ export default class FindOwnersPage extends React.Component<IFindOwnersPageProps
     this.submitSearchForm = this.submitSearchForm.bind(this);
 
     this.state = {
-      filter: getFilterFromLocation(props.location)
+      filter: getFilterFromLocation(props.location),
+      owners: {}
     };
   }
 

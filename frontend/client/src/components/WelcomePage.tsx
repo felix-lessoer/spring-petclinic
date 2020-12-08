@@ -2,8 +2,8 @@ import * as React from 'react';
 import { APMService, punish } from '../main';
 export default class WelcomePage extends React.Component<any, any> {
 
-  constructor() {
-    super();
+  constructor(props: any, state: any) {
+    super(props, state);
   }
 
   componentWillMount() {

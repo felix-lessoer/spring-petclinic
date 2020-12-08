@@ -7,7 +7,7 @@ Keep in mind that you will have to properly configure the APM agents accordingly
 ## Running Petclinic React Web Application Locally for Development
 
 ```
-	git clone https://github.com/adamquan/spring-petclinic.git
+	git clone https://github.com/tuurleyck/spring-petclinic.git
 	cd spring-petclinic/frontend/client
 	npm install
 	npm start

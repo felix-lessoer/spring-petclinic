@@ -1,5 +1,5 @@
 import * as React from 'react';
-const { Router } = require('react-router');
+import { Router } from 'react-router';
 
 // Routes
 import configureRoutes from './configureRoutes';

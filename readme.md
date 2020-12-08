@@ -23,10 +23,12 @@ A docker compose allows the user to run the application, backed with Mysql as th
 
 See instructions for each of the components of the application.
 
+First of all, set your Elasticsearch cluster information inside the script `bin/setAPMenv.sh` and run the script. All the components rely on the environment variables to connect to your Elasticsearch cluster.
+
 - Start the Spring Boot backend
 
 ```
-	git clone https://github.com/adamquan/spring-petclinic.git
+	git clone https://github.com/tuurleyck/spring-petclinic.git
 	cd spring-petclinic
 	./mvnw spring-boot:run
 ```
@@ -37,6 +39,7 @@ See instructions for each of the components of the application.
 	cd spring-petclinic/address_resolver/src
 	pip install gunicorn json-logging-py
 	pip install --no-cache-dir -r requirements.txt
+        python data_load.py
 	gunicorn --config gunicorn.conf --log-config logging.conf -b :5000 server:app
 ```
 
@@ -51,7 +54,6 @@ See instructions for each of the components of the application.
 - Start the React frontend
 
 ```
-	git clone https://github.com/adamquan/spring-petclinic.git
 	cd spring-petclinic/frontend/client
 	npm install
 	npm start
@@ -61,4 +63,4 @@ See instructions for each of the components of the application.
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
 
 Application Architecture: 
-![PetClinic Application Architecture](https://github.com/adamquan/spring-petclinic/blob/master/images/architecture.png)
+![PetClinic Application Architecture](https://github.com/tuurleyck/spring-petclinic/blob/master/images/architecture.png)
